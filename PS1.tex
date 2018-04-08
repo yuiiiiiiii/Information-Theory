@@ -1,0 +1,257 @@
+\documentclass[12pt]{article}
+
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{definition}[2][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[2][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Information Theory PS1}%replace with the appropriate homework number
+\author{Yuyi Gu\\ %replace with your name
+516030910469} %if necessary, replace with your course title
+ 
+\maketitle
+%Below is an example of the problem environment
+\begin{problem}{1 Maximum entropy}
+    \item The normal maximizes the entropy for a given variance. If $Var(x)=a$ is fixed, then prove: $$h(x)\leq \frac{1}{2}\log2\pi ea$$
+\end{problem}
+
+%Below is the solution environment
+\begin{proof}{}
+
+\end{proof}
+
+\begin{problem}{2 Entropy of a disjoint mixture}
+    \item Let $X_{1}$ and $X_{2}$ be discrete random variables drawn according to probability mass function $p_{1}(.)$ and $p_{2}(.)$ over the respective alphabets $\chi_{1}=\{1,2,...,m\}$ and $\chi_{2}=\{m+1,...,n\}$. Let
+    $$X=\left\{
+    \begin{array}{rcl}
+    X_1 & & {, \  with \ probability \  \alpha.} \\
+    X_2 & & {, \ with \ probability \  1-\alpha.} 
+    \end{array}
+    \right.
+    $$
+    \begin{enumerate}[label=(\arabic*)]
+    \item Find $H(x)$ in terms of $H\left(x_1\right)$, $H\left(x_2\right)$ and $\alpha$.
+    \item What if $\chi_{1}= \chi_{2}$ ?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}{}
+    \begin{enumerate}[label =(\arabic*)]
+    \item 
+        \begin{equation*}
+        H_{1}(x) = \sum_{i=1}^m\frac{1}{m}\log\frac{1}{m}
+        \end{equation*}
+        \begin{equation*}
+        H_{2}(x) = \sum_{i=1}^m\frac{1}{n-m}\log\frac{1}{n-m}
+        \end{equation*}
+        \begin{align*}
+            H(x) &= -[(\sum_{x\in\chi_{1}}p_{1}(x)*\alpha*\log p_{1}(x)) + 
+            (\sum_{x\in\chi_{2}}p_{2}(x)*(1-\alpha)*\log p_{2}(x))] \\
+                 &= \sum_{i=1}^m\frac{\alpha}{m}\log\frac{1}{m} - 
+                 \sum_{i=1}^{n-m}\frac{1 - \alpha}{n-m}\log\frac{1 - \alpha}{n-m} \\
+                 &= \alpha H_{1}(x) + (1-\alpha)H_{2}(x) - \alpha\log a - (1-\alpha)log(1-\alpha)
+        \end{align*}
+    \item
+        \begin{equation*}
+        p(x) = \frac{1}{m}\alpha + \frac{1}{m}(1-\alpha) = \frac{1}{m}
+        \end{equation*}
+        \begin{align*}
+            H(x) &= -\sum_{x\in\cup{\chi_{1},\chi_{2}}} p(x)\log p(x) \\
+                &= -\sum_{i=1}^m\frac{1}{m}\log\frac{1}{m} \\
+                &= -\log\frac{1}{m} \\
+                &= m H_{1}(x) = m H_{2}(x)
+        \end{align*}
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{3 Entropy of a sum}
+    \item 
+        Let $X$ and $Y$ be random variables that take on values $x_{1},x_{2},...,x_{r}$ and $y_1,y_2,...,y_s$, respectively.\\Let $Z=X+Y$
+    \begin{enumerate}[label =(\alph*)]
+    \item
+        Show that $H(Z|X)=H(Y|X)$. Argue that if X,Y are independent, then $H(Y)\leq H(Z)$ and  $H(X)\leq H(Z)$. Thus , the addition of independent random variables adds uncertainty.
+    \item
+        Give an example of (necessarily dependent) random variables in which $H(X)>H(Z)$ and $H(Y)>H(Z)$
+    \item
+        Under what conditions does $H(Z)=H(X)+H(Y)$ ?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}{}
+    \begin{enumerate}[label=\alph*)]
+        \item
+            \begin{align*}
+                H(Z|X) &= -\sum_{X,Z}p(X=x,Z=z)*\log p(Z=z|X=x) \\
+                    &= -\sum_{X,Z}p(X=x)P(Z=z|X=x)*\log p(Z=z|X=x) \\
+                    &= -\sum_{X}p(X=x)*\sum_{Z}P(Z=z|X=x)*\log p(Z=z|X=x) \\
+                    &= -\sum_{X}p(X=x)*\sum_{Y}P(Y=z-x|X=x)*\log p(Y=z-x|X=x) \\
+                    &= -\sum_{X,Y}p(Y=z-x,X=x)*\log p(Y=z-x|X=x) \\
+                    &= H(Y|X) \\
+            \end{align*}
+            if X,Y independent \quad $H(Y|X)=H(Y)$
+            \begin{align*}
+                H(Z) &= H(X+Y) \\
+                    &= H(X+Y|Y) + I(X+Y;Y) \\
+                    &{\geq} H(X|Y) = H(X) \\
+            \end{align*}
+            Similarly,$H(Z) \geq H(Y)$
+        \item
+            W.O.L.G, suppose the joint probability distribution of $X$ and $Y$ is $$p(X=0,Y=0)=\frac{1}{2}, p(X=0,Y=-1) = 0,$$
+            $$ p(X=1,Y=0)=0, p(X=1,Y=-1)=\frac{1}{2}$$. \\
+            it is easy to verify that the probability distribution of $Z$ is
+            $$p(Z=0)=1$$
+            Thus,
+            $$H(Z)=0$$
+            Also,since $p(X=0)=\frac{1}{2}, p(X=1)=\frac{1}{2}$
+            $$H(X)=-\left(\frac{1}{2}\log\frac{1}{2}+\frac{1}{2}\log\frac{1}{2}\right) = 0.3 > H(Z)$$
+            Similarly,since $p(Y=0)=\frac{1}{2}, p(Y=-1)=\frac{1}{2}$
+            $$H(Y)=-\left(\frac{1}{2}\log\frac{1}{2}+\frac{1}{2}\log\frac{1}{2}\right) = 0.3 > H(Z)$$  
+        \item
+            $$H(X,Y)=H(X)+H(Y|X)\leq H(X)+H(Y)$$
+            $$H(Z)\leq H(X,Y) \leq H(X)+H(Y)$$
+            \begin{center}
+            the equal holds only when $H(Y|X)=H(Y)$,i.e.:\\
+            X,Y independent
+            \end{center}
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{4 Entropy and Pairwise independence}
+    \item Let X,Y,Z be three binary $Bernoulli\left(\frac{1}{2}\right)$ random variables that are pairwise independent; that is, 
+    $$I(X;Y)=I(X;Z)=I(Y;Z)=0$$
+    \begin{enumerate}[label=\alph*)]
+        \item 
+        Under this constraint, what is the minimum value for H(X,Y,Z)?
+        \item
+        Give an example achieving this minimum.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}{}
+    \begin{enumerate}[label=\alph*)]
+        \item 
+        By the information given in the question, we can include that
+        $$H(X)=H(Y)=H(Z)=-\frac{1}{2}$$
+        So, we can draw the following information diagram\\
+        \includegraphics[scale=0.6]{PS1.png}\\
+        the range of $a$ in the graph is $0\leq a\leq1$\\
+        since the mutual information is non-negative\\
+        By observation, we can obtain that
+        $$H(X,Y,Z)=-3\log_2\frac{1}{2}-a=3-a\geq 2 $$
+        \item
+            Suppose $Z=(X+Y)mod2$, and the probability distribution of $X$ and $Y$ is as follows:
+            \begin{spacing}{1.5}
+            $$p(X)=\left\{
+            \begin{array}{rcl}
+            \frac{1}{2} & & {X=1} \\
+            \frac{1}{2} & & {X=0} 
+            \end{array}
+            \right.
+            \quad
+            p(Y)=\left\{
+            \begin{array}{rcl}
+            \frac{1}{2} & & {Y=1} \\
+            \frac{1}{2} & & {Y=0} 
+            \end{array}
+            \right.
+            $$
+            \end{spacing}
+            Then, it is easy to figure out 
+            $$I(Z;X|Y)=H(Z|Y)-H(Z|X,Y)=-\log_2\frac{1}{2}=1$$
+            $$H(X,Y,Z)=2$$
+    \end{enumerate}
+\end{solution}
+\newpage
+
+\begin{problem}{5 Subset inequality}
+    \item
+    Prove that 
+    $$\frac{1}{2}[H(X_1,X_2)+H(X_2,X_3)+H(X_3,X_1)]\geq H(X_1,X_2,X_3)$$
+\end{problem}
+
+\begin{proof}{}
+    \item
+    \begin{align*}
+        left &= \frac{1}{2}[H(X_1,X_2)+H(X_2,X_3)+H(X_3,X_1)] \\
+            &= \frac{1}{2}[2H(X_1|X_3)+I(X_1;X_3)+2H(X_3)+H(X_2|X_1)+H(X_2|X_3)] \\
+            &= \frac{1}{2}[2H(X_1|X_3)+2H(X_3)+2H(X_2)-I(X_1;X_3)-I(X_1;X_2)+I(X_1;X_3)] \\
+            &= \frac{1}{2}[2H(X_1|X_3)+2H(X_3)+2H(X2|X1,X3)]+\frac{1}{2}[I(X_1;X_3)+I(X_1;X_2)+I(X_2;X_3)] \\
+            &= H(X,Y,Z)+\frac{1}{2}[I(X1;X3)+I(X2;X3)+I(X1;X3)]
+    \end{align*}
+    $$\because
+        I(X_1;X_2),I(X_2;X_3),I(X_1;X_3)\geq 0
+    $$
+    $$
+    \therefore
+        \frac{1}{2}[H(X_1,X_2)+H(X_2,X_3)+H(X_3,X_1)]\geq H(X_1,X_2,X_3)
+    $$
+\end{proof}
+
+\begin{problem}{6 Information diagram for Markov Chain}
+    \item
+    Verify that if $X->Y->Z$, then their information diagram can be simplified as 
+    \newline
+    \includegraphics[scale=0.5]{PS1-2.png}\\
+    (The result can be extended to $x_1->x_2->...->x_n$)
+\end{problem}
+\newpage
+\begin{solution}{}
+    
+\end{solution}
+
+\begin{problem}{7 Implication and Markov Chain}
+    \begin{enumerate}[label=\alph*)]
+        \item 
+        Prove that
+        \newline
+        under the constraint that $X->Y->Z$ forms a Markov chain,  $X\perp Y|Z$ and $X\perp Z$ imply $X\perp Y$.
+        \item
+        Prove that the implication in (a) continues to be valid without the Markov chain constraint.
+        \item
+        Prove that $Y\perp Z|T$ implies $Y\perp Z|(X,T)$ conditioning on $X->Y->Z->T$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    
+\end{solution}
+
+\pagebreak
+\end{document}
