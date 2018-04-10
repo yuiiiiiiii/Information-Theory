@@ -54,6 +54,22 @@
 
 %Below is the solution environment
 \begin{proof}{}
+    \item
+    \begin{align*}
+        D(p||q) &= E_p(\log\frac{p(x)}{q(x)}) \\
+                &= E_p(\log p(x))-E_p(\log{\frac{1}{\sqrt{2\pi a}} exp(-\frac{x^2}{2a}})) \\
+                &= E_p(\log p(x))-\log (\frac{1}{\sqrt{2\pi a}})-E_p(exp(-\frac{x^2}{2a})) \\
+                &= E_p(\log p(x))+\frac{1}{2}\log2\pi a +E_p(-\frac{x^2}{2a}) \\
+                &= E_p(\log p(x)))+\frac{1}{2}\log2\pi a+\frac{a+\mu_p^2}{2a}\geq0 \\
+    \end{align*}
+    $$
+    \therefore
+        -E_p(\log p(x))\leq \frac{1}{2}\log2\pi ea+\frac{1}{2}\mu_p^2
+    $$
+    i.e.:
+    $$
+        H(p)\leq \frac{1}{2}\log2\pi ea
+    $$
 
 \end{proof}
 
@@ -198,7 +214,6 @@
             $$H(X,Y,Z)=2$$
     \end{enumerate}
 \end{solution}
-\newpage
 
 \begin{problem}{5 Subset inequality}
     \item
@@ -231,17 +246,24 @@
     \includegraphics[scale=0.5]{PS1-2.png}\\
     (The result can be extended to $x_1->x_2->...->x_n$)
 \end{problem}
-\newpage
-\begin{solution}{}
-    
-\end{solution}
+\begin{proof}{}
+    \item
+    \begin{center}
+    prove the information diagram $\Longleftrightarrow$ prove $I(X;Z\big|Y)=0$ \\
+    \end{center}
+    \begin{align*}
+        I(X;Z|Y) &= H(X|Y)+H(Z|Y)-H(X,Z|Y)\\
+                &= H(X|Y)+H(Z|Y)-(H(X|Z,Y)+H(Z|X,Y))\\
+                &= H(X|Y)+H(Z|Y)-H(X|Y)-H(Z|Y)\\
+                &= 0
+    \end{align*}
+\end{proof}
 
 \begin{problem}{7 Implication and Markov Chain}
+    \quad\quad\quad
     \begin{enumerate}[label=\alph*)]
         \item 
-        Prove that
-        \newline
-        under the constraint that $X->Y->Z$ forms a Markov chain,  $X\perp Y|Z$ and $X\perp Z$ imply $X\perp Y$.
+        Prove that under the constraint that $X->Y->Z$ forms a Markov chain,  $X\perp Y|Z$ and $X\perp Z$ imply $X\perp Y$.
         \item
         Prove that the implication in (a) continues to be valid without the Markov chain constraint.
         \item
@@ -249,9 +271,146 @@
     \end{enumerate}
 \end{problem}
 
-\begin{solution}
-    
+\begin{proof}
+    \begin{enumerate}[label=\alph*]
+        \item
+        $$X\perp Z \Longleftrightarrow I(X;Z)=0$$
+        \begin{center}
+        So, it is easy to draw the information diagram conditioning on the Markov chain. \\
+        \includegraphics[scale=0.5]{PS1-3.png}\\
+        \end{center}
+        Also,
+        $$x\perp Y\big| Z \Longleftrightarrow I(X;Y|Z)=0$$
+        Conditioning on what have been discussed above
+        $$I(X;Y|Z)=0\Longleftrightarrow I(X;Y)=0$$
+        $$\therefore X\perp Y$$
+        \item 
+        $$\because I(X;Y\big|Z)=0, I(X;Z)=0$$
+        W.L.O.G. suppose $I(X;Z|Y)=a$, since the mutual information entropy is non-negative, $a\geq0$
+        $$\because I(X;Z)=0 $$
+        $\therefore $
+        we can figure out the information diagram as follows:
+        \begin{center}
+            \includegraphics[scale=0.5]{PS1-4.png}
+        \end{center}
+        According to the graph, we can conclude $I(X;Y)=-a$. Moreover, since the mutual information is non-negative, $$-a\geq0$$
+        since $a\geq0$, so we can derive
+        $$-a\leq0$$
+        $$\therefore a=0$$
+        $$\Longleftrightarrow I(X;Y)=-a=0$$
+        $$\Longleftrightarrow X\perp Y$$
+        \item
+        $$Y\perp Z\big| T \Leftrightarrow I(Y;Z|T)=0$$
+        $$\Leftrightarrow H(X|T)+H(Z|T)-H(X,Z|T)=0$$
+        $$\Leftrightarrow H(X)+H(Z)=H(X,Z|T)$$
+        $$\Leftrightarrow H(X)+H(Z)=H(X|Z,T)+H(Z|X,T)$$
+        $$\Leftrightarrow H(Z)=H(Z|X)$$
+        $$\Leftrightarrow I(X;Z)=0$$
+        $$\Leftrightarrow I(Y;Z|T)=I(Y;Z|X,T)$$
+    \end{enumerate}
+\end{proof}
+
+\begin{problem}{8 Markov chain with 4 random variables}
+    \item
+    Let $X->Y->Z->T$ form a Markov chain. Determine which of the following inequalities always hold:
+    \begin{enumerate}[label=\roman*]
+        \item $$I(X;T)+I(Y;Z)\geq I(X;Z)+I(Y;T)$$
+        \item $$I(X;T)+I(Y;Z)\geq I(X;Y)+I(Z;T)$$
+        \item $$I(X;Y)+I(Z;T)\geq I(X;Z)+I(Y;T)$$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}{}
+    \item
+    Inequalities i and iii holds.\\
+    As the picture below shows,
+    \begin{center}
+        \includegraphics[scale=0.5]{PS1-5.png}
+    \end{center}
+    \begin{enumerate}[label=\roman*]
+        \item
+        \begin{align*}
+            I(X;Z)-I(X;T)&=[H(X)-H(X|Z)]-[H(X)-H(X|T)]\\
+                        &= H(X|T)-H(X|Z)\\
+                        &= I(Z;X|T)
+        \end{align*}
+        Similarly, $$I(Y;Z)-I(Y;T)=I(Y;Z|T)$$
+        \begin{equation}  
+        \left\{  
+             \begin{array}{lr}  
+             I(X;T)=I(X;Z)-I(Z;X|T) &  \\  
+             I(Y;Z)=I(Y;T)+I(Y;Z|T) &  \\  
+             \end{array}  
+        \right.  
+        \end{equation}  
+        \begin{center}
+            \includegraphics[scale=0.5]{PS1-7.png}\\
+            The red part denotes: $I(Z;X|T)$
+            The blue part denotes: $I(Y;Z|T)$
+        \end{center}
+        $$\because I(Z;X|T)\leq I(Y;Z|T)$$
+        $\therefore$ 
+        \begin{equation}
+            I(X;T)+I(Y;Z)\geq I(X;Z)+I(Y;T)
+        \end{equation}
+        
+        \item
+        Just like discussed above,
+        $$I(X;Y)-I(X;T)=I(X;Y|T)$$
+        \begin{align*}
+            I(Y;Z)-I(Z;T) &= [H(Z)-H(Z|Y)]-[H(Z)-H(Z|T)]\\
+                          &= H(Z|T)-H(Z|Y)\\
+        \end{align*}
+        $\therefore$ We can't determine the sign of the inequality\\
+        \item
+        Similarly,we can derive
+        \begin{equation}  
+        \left\{  
+             \begin{array}{lr}  
+             I(X;Y)-I(X;Z)=I(X;Y|Z) &  \\  
+             I(Z;T)-I(Y;T)=I(Z;T|Y) &  \\  
+             \end{array}  
+        \right.  
+        \end{equation} 
+        $\longrightarrow$
+        \begin{equation}
+            I(X;Y)+I(Z;T)\geq I(X;Z)+I(Y;T)
+        \end{equation}
+    \end{enumerate}
 \end{solution}
+\newpage
+\begin{problem}{9 Imperfect secrecy theorem}
+    \item
+    Let X be the plain text, Y be the cipher text, and Z be the key in a secret key cryptosystem. Since X can be recovered from Y and Z, we have
+    $$H(X|Y,Z)=0$$
+    We will show that this constraint implies 
+    $$I(X;Y)\geq H(X)-H(Z)$$
+\end{problem}
+
+\begin{proof}
+    \item
+    By drawing the information graph, we can easily come to the following equation:
+    \begin{equation}
+        H(Z)= H(Z|X,Y)+I(Y;Z)+I(X;Z|Y)
+    \end{equation}
+    \begin{center}
+        \includegraphics[scale=0.5]{PS1-6.png}\\
+        the purple part denotes $I(Y;Z)\geq0$\\
+        the orange part denotes $H(Z|X,Y)\geq0$\\
+        the blue part denotes $H(X|Y,Z)=0$\\
+        the green part denotes $I(X;Z|Y)$
+    \end{center}
+    $$\because H(X|Y,Z)=0$$
+    $$\therefore I(X;Z|Y)=I(X;Z|Y)+H(X|Y,Z)=H(X|Y)$$
+    $$\because H(Z)= H(Z|X,Y)+I(Y;Z)+I(X;Z|Y)$$
+    \begin{align*}
+    \therefore
+        H(Z) &\geq I(X;Z|Y) \\
+            &\geq H(X|Y) \\
+            &\geq H(X)-I(X;Y)
+    \end{align*}
+    $$\therefore I(X;Y)\geq H(X)-H(Z)$$
+\end{proof}{}
 
 \pagebreak
 \end{document}
